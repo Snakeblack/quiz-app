@@ -51,6 +51,7 @@ const d_text = document.getElementById('d_text');
 const submitBtn = document.getElementById('submit');
 
 let currentQuiz = 0;
+let score = 0;
 
 loadQuiz();
 
@@ -64,12 +65,40 @@ function loadQuiz() {
     d_text.innerText = currentQuizData.d;
 }
 
+function getSelected() {
+    const answersEls = document.querySelectorAll('answer');
+
+    let answer = undefined;
+
+    answersEls.forEach((answerEl) => {
+        if(answer.checked) {
+            answer = answerEl.id;
+        }
+    });
+
+    return answer;
+}
+
+function deselectAnswers{
+    
+}
+
 submitBtn.addEventListener('click', () => {
-    currentQuiz++;
-    if(currentQuiz < quizData.length) {
-        loadQuiz();
-    } else {
-        // TAREA: Mostrar los resultados.
-        alert("Has acabado!")
+    //revisa las respuestas
+    const answer = getSelected();
+
+    if (answer) {
+        if(answer == quizData[currentQuiz].correct){
+            score++;
+        }
+        currentQuiz++;
+        if(currentQuiz < quizData.length) {
+            loadQuiz();
+        } else {
+            // TAREA: Mostrar los resultados.
+            alert("Has acabado!")
+        }
     }
-})
+    
+    
+});
